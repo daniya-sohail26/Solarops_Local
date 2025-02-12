@@ -10,7 +10,7 @@ app.use(morgan('tiny'));
 app.disable('x-powered-by');
 
 app.use(cors({
-  origin:"https://solarops.vercel.app",
+  origin:'*',
   credentials: true,
 }));
 

@@ -4,7 +4,7 @@ Axios.defaults.baseURL = import.meta.env.VITE_REACT_APP_SERVER_DOMAIN;
 
 export async function SignUp(credentials) {
   try {
-    const { data: { msg } } = await Axios.post('https://solarops-final-server.vercel.app/api/register', credentials);
+    const { data: { msg } } = await Axios.post('http://localhost:3500/api/register', credentials);
     return Promise.resolve(msg);
   } catch (error) {
     return Promise.reject({ error });
@@ -13,7 +13,7 @@ export async function SignUp(credentials) {
 
 export async function loginUser(credentials) {
   try {
-    const { data } = await Axios.post('https://solarops-final-server.vercel.app/api/login', credentials);
+    const { data } = await Axios.post('http://localhost:3500/api/login', credentials);
     
     // Store user info in sessionStorage
     console.log(data.user.organizationName);
@@ -30,7 +30,7 @@ export async function loginUser(credentials) {
 // Function to fetch prediction data
 export async function fetchPrediction(data) {
   try {
-    const response = await Axios.post('https://cors-anywhere.herokuapp.com/https://ppgmodel-production.up.railway.app/predict/gb', data);
+    const response = await Axios.post('https://cors-anywhere.herokuapp.com/https://164a-34-68-17-65.ngrok-free.app/predict/gb', data);
     console.log(response.data);
     return Promise.resolve(response.data);
   } catch (error) {
@@ -44,7 +44,7 @@ export async function AddLocation(location_name, latitude, longitude) {
     const user = sessionStorage.getItem("email");
 console.log(user);
     // Make the API call with email, location_name, lat, and lng
-    const { data: { msg } } = await Axios.post('https://solarops-final-server.vercel.app/api/visualizations', {
+    const { data: { msg } } = await Axios.post('http://localhost:3500/api/visualizations', {
       email: user,
       location_name: location_name,
        latitude: latitude,
@@ -73,7 +73,7 @@ export async function GetUserLocations() {
     }
 
     // Send GET request to the server with the user's email in the headers
-    const { data } = await Axios.get('https://solarops-final-server.vercel.app/api/visualizations', {
+    const { data } = await Axios.get('http://localhost:3500/api/visualizations', {
       headers: { "User-Email": user }, // Send email in headers for authorization
     });
 
@@ -103,7 +103,7 @@ export async function DeleteLocation(location_name) {
       }
 
       // Make sure to include the email in the headers and location_name in the URL
-      const { data: { msg } } = await Axios.delete(`https://solarops-final-server.vercel.app/api/visualizations?location_name=${encodeURIComponent(location_name)}`, {
+      const { data: { msg } } = await Axios.delete(`http://localhost:3500/api/visualizations?location_name=${encodeURIComponent(location_name)}`, {
           headers: {
               "user-email": user,
           }
@@ -119,7 +119,7 @@ export async function DeleteLocation(location_name) {
 export const fetchFaultPrediction = async (formData) => {
   try {
     const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/https://faultdetmodel-production.up.railway.app/predict/",
+      "https://cors-anywhere.herokuapp.com/https://d478-35-221-24-217.ngrok-free.app/predict/",
       {
         // Replace with your ngrok URL
         method: "POST",
